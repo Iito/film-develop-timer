@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film Development Timer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🎞️</span>
+                <h1>Film Dev Timer</h1>
+            </div>
+        </header>
+
+        <!-- Setup Panel -->
+        <section id="setup-panel" class="panel setup-panel">
+            <h2>Setup Your Development</h2>
+
+            <div class="form-group">
+                <label for="film-select">Film Stock</label>
+                <select id="film-select" class="select-input">
+                    <option value="">Select a film...</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="developer-select">Developer</label>
+                <select id="developer-select" class="select-input" disabled>
+                    <option value="">Select a developer...</option>
+                </select>
+            </div>
+
+            <div id="config-summary" class="config-summary hidden">
+                <div class="summary-row">
+                    <span class="summary-label">Development Time</span>
+                    <span id="summary-time" class="summary-value">--</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Temperature</span>
+                    <span class="summary-value">20°C</span>
+                </div>
+                <div class="summary-subsection">
+                    <div class="subsection-header">Agitation</div>
+                    <div class="summary-row sub-row">
+                        <span class="summary-label">Initial</span>
+                        <span id="summary-agitation-initial" class="summary-value">--</span>
+                    </div>
+                    <div class="summary-row sub-row">
+                        <span class="summary-label">Duration</span>
+                        <span id="summary-agitation-duration" class="summary-value">--</span>
+                    </div>
+                    <div class="summary-row sub-row">
+                        <span class="summary-label">Interval</span>
+                        <span id="summary-agitation-interval" class="summary-value">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workflow Overview Panel -->
+            <div id="workflow-panel" class="workflow-overview hidden">
+                <div class="workflow-header">
+                    <h3>Workflow Overview</h3>
+                    <div class="total-time">
+                        <span class="total-time-label">Total Time</span>
+                        <span id="total-workflow-time" class="total-time-value">--</span>
+                    </div>
+                </div>
+
+                <div class="workflow-steps-list">
+                    <div class="workflow-step-item">
+                        <div class="step-header">
+                            <span class="step-icon">🧪</span>
+                            <span class="step-name">Developer</span>
+                            <span id="workflow-dev-time" class="step-time">--</span>
+                        </div>
+                        <div class="step-details">
+                            <span class="detail-label">Agitation:</span>
+                            <span id="workflow-dev-agitation" class="detail-value">--</span>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step-item optional">
+                        <div class="step-header">
+                            <label class="step-checkbox" title="Use stop bath instead of water">
+                                <input type="checkbox" id="include-stop-bath" checked>
+                                <span class="checkmark"></span>
+                            </label>
+                            <span class="step-icon">🚿</span>
+                            <span id="stop-bath-name" class="step-name">Stop Bath</span>
+                            <span class="step-time">30s</span>
+                        </div>
+                        <div class="step-details">
+                            <span class="detail-label">Agitation:</span>
+                            <span id="stop-bath-agitation" class="detail-value">3 rapid inversions</span>
+                        </div>
+                        <div class="step-option">
+                            <label class="inline-checkbox" title="Pause timer after this step to prepare fixer">
+                                <input type="checkbox" id="pause-after-stop">
+                                <span class="inline-checkmark"></span>
+                                <span class="option-label">Pause after to prepare fixer</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step-item">
+                        <div class="step-header">
+                            <span class="step-icon">⚗️</span>
+                            <span class="step-name">Fixer</span>
+                            <span class="step-time">5:00</span>
+                        </div>
+                        <div class="step-details">
+                            <span class="detail-label">Agitation:</span>
+                            <span class="detail-value">30s initial, then 10s every 60s</span>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step-item">
+                        <div class="step-header">
+                            <span class="step-icon">💧</span>
+                            <span class="step-name">Wash</span>
+                            <span class="step-time">5:00</span>
+                        </div>
+                        <div class="step-details">
+                            <span class="detail-label">Agitation:</span>
+                            <span class="detail-value">Running water (none needed)</span>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step-item optional">
+                        <div class="step-header">
+                            <label class="step-checkbox">
+                                <input type="checkbox" id="include-wetting-agent" checked>
+                                <span class="checkmark"></span>
+                            </label>
+                            <span class="step-icon">✨</span>
+                            <span class="step-name">Wetting Agent</span>
+                            <span class="step-time">30s</span>
+                        </div>
+                        <div class="step-details">
+                            <span class="detail-label">Agitation:</span>
+                            <span class="detail-value">Gentle swirl only (no inversions)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Settings (Collapsible) -->
+            <details class="advanced-menu">
+                <summary class="advanced-toggle">
+                    <span class="advanced-icon">⚙</span>
+                    <span>Advanced Settings</span>
+                    <span class="chevron">›</span>
+                </summary>
+
+                <div class="advanced-content">
+                    <div class="settings-group">
+                        <div class="settings-group-title">Sounds</div>
+
+                        <div class="setting-row">
+                            <label class="setting-label" for="sound-agitation">Agitation tone</label>
+                            <label class="toggle">
+                                <input type="checkbox" id="sound-agitation" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-row sub-setting" id="tone-type-row">
+                            <label class="setting-label" for="tone-type">Tone style</label>
+                            <div class="select-with-test">
+                                <select id="tone-type" class="select-input select-small">
+                                    <option value="pulse">Pulse</option>
+                                    <option value="metronome">Metronome</option>
+                                    <option value="soft">Soft Hum</option>
+                                    <option value="urgent">Urgent</option>
+                                    <option value="chime">Chime</option>
+                                    <option value="tokyo">Tokyo Crosswalk</option>
+                                </select>
+                                <button type="button" id="test-tone-btn" class="btn-test" title="Test tone">▶</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-row">
+                            <label class="setting-label" for="sound-beeps">Countdown beeps</label>
+                            <label class="toggle">
+                                <input type="checkbox" id="sound-beeps" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-row">
+                            <label class="setting-label" for="sound-alerts">Step alerts</label>
+                            <label class="toggle">
+                                <input type="checkbox" id="sound-alerts" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <div class="settings-group-title">Voice</div>
+
+                        <div class="setting-row">
+                            <label class="setting-label" for="voice-enabled">Voice announcements</label>
+                            <label class="toggle">
+                                <input type="checkbox" id="voice-enabled" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-row sub-setting" id="voice-gender-row">
+                            <label class="setting-label" for="voice-gender">Voice type</label>
+                            <div class="select-with-test">
+                                <select id="voice-gender" class="select-input select-small">
+                                    <option value="female">Female</option>
+                                    <option value="male">Male</option>
+                                </select>
+                                <button type="button" id="test-voice-btn" class="btn-test" title="Test voice">▶</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <div class="start-options">
+                <div class="countdown-select">
+                    <label for="start-countdown">Countdown</label>
+                    <select id="start-countdown" class="select-input select-small">
+                        <option value="0">None</option>
+                        <option value="5">5 sec</option>
+                        <option value="10" selected>10 sec</option>
+                        <option value="15">15 sec</option>
+                        <option value="30">30 sec</option>
+                        <option value="60">1 min</option>
+                    </select>
+                </div>
+                <button id="start-btn" class="btn btn-primary" disabled>
+                    Start Development
+                </button>
+            </div>
+        </section>
+
+        <!-- Countdown Panel -->
+        <section id="countdown-panel" class="panel countdown-panel hidden">
+            <div class="countdown-content">
+                <h2>Get Ready</h2>
+                <p class="countdown-instruction">Prepare your chemicals and tank</p>
+                <div class="countdown-display">
+                    <span id="countdown-number">10</span>
+                </div>
+                <button id="skip-countdown-btn" class="btn btn-outline">
+                    Skip → Start Now
+                </button>
+            </div>
+        </section>
+
+        <!-- Timer Panel -->
+        <section id="timer-panel" class="panel timer-panel hidden">
+            <!-- Workflow Progress -->
+            <div class="workflow-progress">
+                <div class="step-indicator" data-step="1">
+                    <div class="step-dot"></div>
+                    <span class="step-label">Developer</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-indicator" data-step="2">
+                    <div class="step-dot"></div>
+                    <span class="step-label">Stop</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-indicator" data-step="3">
+                    <div class="step-dot"></div>
+                    <span class="step-label">Fixer</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-indicator" data-step="4">
+                    <div class="step-dot"></div>
+                    <span class="step-label">Wash</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-indicator" data-step="5">
+                    <div class="step-dot"></div>
+                    <span class="step-label">Rinse</span>
+                </div>
+            </div>
+
+            <!-- Current Step Info -->
+            <div class="current-step-info">
+                <h2 id="step-name">Developer</h2>
+                <p id="step-chemical" class="chemical-name">Super Purodoll (1+1)</p>
+            </div>
+
+            <!-- Main Timer Display -->
+            <div id="timer-display" class="timer-display">
+                <div class="time-remaining">
+                    <span id="timer-minutes">00</span>
+                    <span class="time-separator">:</span>
+                    <span id="timer-seconds">00</span>
+                </div>
+                <div class="time-elapsed">
+                    Elapsed: <span id="elapsed-time">0:00</span>
+                </div>
+            </div>
+
+            <!-- Agitation Indicator -->
+            <div id="agitation-indicator" class="agitation-indicator">
+                <div class="agitation-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                    </svg>
+                </div>
+                <span id="agitation-text">Agitate</span>
+                <div class="agitation-timer">
+                    <span id="agitation-countdown">--</span>
+                </div>
+            </div>
+
+            <!-- Quick Mute Controls -->
+            <div class="mute-controls">
+                <button id="mute-tone-btn" class="mute-btn" title="Mute tones">
+                    <svg class="mute-icon unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                    </svg>
+                    <svg class="mute-icon muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+                        <line x1="23" y1="9" x2="17" y2="15"/>
+                        <line x1="17" y1="9" x2="23" y2="15"/>
+                    </svg>
+                    <span>Tones</span>
+                </button>
+                <button id="mute-voice-btn" class="mute-btn" title="Mute voice">
+                    <svg class="mute-icon unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                        <line x1="12" y1="19" x2="12" y2="23"/>
+                        <line x1="8" y1="23" x2="16" y2="23"/>
+                    </svg>
+                    <svg class="mute-icon muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                        <line x1="12" y1="19" x2="12" y2="23"/>
+                        <line x1="8" y1="23" x2="16" y2="23"/>
+                        <line x1="1" y1="1" x2="23" y2="23" stroke-width="2"/>
+                    </svg>
+                    <span>Voice</span>
+                </button>
+            </div>
+
+            <!-- Timer Controls -->
+            <div class="timer-controls">
+                <button id="skip-btn" class="btn btn-outline">
+                    Skip Step →
+                </button>
+                <button id="reset-btn" class="btn btn-danger">
+                    ⟲ Restart
+                </button>
+            </div>
+        </section>
+
+        <!-- Completion Panel -->
+        <section id="complete-panel" class="panel complete-panel hidden">
+            <div class="complete-icon">✓</div>
+            <h2>Development Complete!</h2>
+            <p>Your film is ready. Remove from tank and hang to dry.</p>
+            <button id="new-session-btn" class="btn btn-primary">
+                Start New Session
+            </button>
+        </section>
+    </div>
+
+    <script src="timer.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Ignore everything
+*
+
+# Except the static site files
+!index.html
+!style.css
+!timer.js
+!data.json
+!README.md
+!.gitignore

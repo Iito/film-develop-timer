@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "films": [
+    { "id": "ilford-hp5-plus-400-400", "name": "Ilford HP5 Plus 400", "iso": 400 },
+    { "id": "ilford-fp4-plus-125-125", "name": "Ilford FP4 Plus 125", "iso": 125 },
+    { "id": "ilford-delta-400-400", "name": "Ilford Delta 400", "iso": 400 },
+    { "id": "kentmere-pan-400-400", "name": "Kentmere Pan 400", "iso": 400 },
+    { "id": "kentmere-pan-100-100", "name": "Kentmere Pan 100", "iso": 100 },
+    { "id": "kodak-tri-x-400-400", "name": "Kodak Tri-X 400", "iso": 400 },
+    { "id": "kodak-t-max-400-400", "name": "Kodak T-Max 400", "iso": 400 },
+    { "id": "lomography-400-400", "name": "Lomography 400", "iso": 400 },
+    { "id": "lomography-100-100", "name": "Lomography 100", "iso": 100 },
+    { "id": "yashica-mono-400-400", "name": "Yashica Mono 400", "iso": 400 },
+    { "id": "oriental-seagull-100-100", "name": "Oriental Seagull 100", "iso": 100 }
+  ],
+  "developers": [
+    { "id": "super-purodoll-d-76-eq", "name": "Super Purodoll (D-76 eq)" },
+    { "id": "kodak-xtol", "name": "Kodak XTOL" },
+    { "id": "fujifilm-microfine", "name": "Fujifilm Microfine" }
+  ],
+  "recipes": [
+    { "id": "ilford-hp5-plus-400-400-super-purodoll-d-76-eq-1-1", "filmId": "ilford-hp5-plus-400-400", "developerId": "super-purodoll-d-76-eq", "dilution": "1+1", "timeSeconds": 540, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "ilford-hp5-plus-400-400-kodak-xtol-1-1", "filmId": "ilford-hp5-plus-400-400", "developerId": "kodak-xtol", "dilution": "1+1", "timeSeconds": 590, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 5, "cycleSeconds": 30 } },
+    { "id": "ilford-hp5-plus-400-400-fujifilm-microfine-stock", "filmId": "ilford-hp5-plus-400-400", "developerId": "fujifilm-microfine", "dilution": "stock", "timeSeconds": 480, "volumeMl": 350, "sharp": true, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "ilford-fp4-plus-125-125-super-purodoll-d-76-eq-1-1", "filmId": "ilford-fp4-plus-125-125", "developerId": "super-purodoll-d-76-eq", "dilution": "1+1", "timeSeconds": 600, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "ilford-fp4-plus-125-125-kodak-xtol-1-1", "filmId": "ilford-fp4-plus-125-125", "developerId": "kodak-xtol", "dilution": "1+1", "timeSeconds": 600, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 5, "cycleSeconds": 30 } },
+    { "id": "ilford-fp4-plus-125-125-fujifilm-microfine-stock", "filmId": "ilford-fp4-plus-125-125", "developerId": "fujifilm-microfine", "dilution": "stock", "timeSeconds": 450, "volumeMl": 350, "sharp": true, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "ilford-delta-400-400-super-purodoll-d-76-eq-1-1", "filmId": "ilford-delta-400-400", "developerId": "super-purodoll-d-76-eq", "dilution": "1+1", "timeSeconds": 720, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "ilford-delta-400-400-kodak-xtol-1-1", "filmId": "ilford-delta-400-400", "developerId": "kodak-xtol", "dilution": "1+1", "timeSeconds": 660, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 5, "cycleSeconds": 30 } },
+    { "id": "ilford-delta-400-400-fujifilm-microfine-stock", "filmId": "ilford-delta-400-400", "developerId": "fujifilm-microfine", "dilution": "stock", "timeSeconds": 720, "volumeMl": 350, "sharp": true, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "kentmere-pan-400-400-super-purodoll-d-76-eq-1-1", "filmId": "kentmere-pan-400-400", "developerId": "super-purodoll-d-76-eq", "dilution": "1+1", "timeSeconds": 600, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "kentmere-pan-400-400-kodak-xtol-1-1", "filmId": "kentmere-pan-400-400", "developerId": "kodak-xtol", "dilution": "1+1", "timeSeconds": 600, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 5, "cycleSeconds": 30 } },
+    { "id": "kentmere-pan-400-400-fujifilm-microfine-stock", "filmId": "kentmere-pan-400-400", "developerId": "fujifilm-microfine", "dilution": "stock", "timeSeconds": 600, "volumeMl": 350, "sharp": true, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "kentmere-pan-100-100-super-purodoll-d-76-eq-1-1", "filmId": "kentmere-pan-100-100", "developerId": "super-purodoll-d-76-eq", "dilution": "1+1", "timeSeconds": 570, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "kentmere-pan-100-100-kodak-xtol-1-1", "filmId": "kentmere-pan-100-100", "developerId": "kodak-xtol", "dilution": "1+1", "timeSeconds": 570, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 5, "cycleSeconds": 30 } },
+    { "id": "kentmere-pan-100-100-fujifilm-microfine-stock", "filmId": "kentmere-pan-100-100", "developerId": "fujifilm-microfine", "dilution": "stock", "timeSeconds": 570, "volumeMl": 350, "sharp": true, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "kodak-tri-x-400-400-super-purodoll-d-76-eq-1-1", "filmId": "kodak-tri-x-400-400", "developerId": "super-purodoll-d-76-eq", "dilution": "1+1", "timeSeconds": 585, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "kodak-tri-x-400-400-kodak-xtol-1-1", "filmId": "kodak-tri-x-400-400", "developerId": "kodak-xtol", "dilution": "1+1", "timeSeconds": 570, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 5, "cycleSeconds": 30 } },
+    { "id": "kodak-tri-x-400-400-fujifilm-microfine-stock", "filmId": "kodak-tri-x-400-400", "developerId": "fujifilm-microfine", "dilution": "stock", "timeSeconds": 510, "volumeMl": 350, "sharp": true, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "kodak-t-max-400-400-super-purodoll-d-76-eq-1-1", "filmId": "kodak-t-max-400-400", "developerId": "super-purodoll-d-76-eq", "dilution": "1+1", "timeSeconds": 660, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "kodak-t-max-400-400-kodak-xtol-1-1", "filmId": "kodak-t-max-400-400", "developerId": "kodak-xtol", "dilution": "1+1", "timeSeconds": 630, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 5, "cycleSeconds": 30 } },
+    { "id": "kodak-t-max-400-400-fujifilm-microfine-stock", "filmId": "kodak-t-max-400-400", "developerId": "fujifilm-microfine", "dilution": "stock", "timeSeconds": 570, "volumeMl": 350, "sharp": true, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "lomography-400-400-super-purodoll-d-76-eq-1-1", "filmId": "lomography-400-400", "developerId": "super-purodoll-d-76-eq", "dilution": "1+1", "timeSeconds": 600, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "lomography-400-400-kodak-xtol-1-1", "filmId": "lomography-400-400", "developerId": "kodak-xtol", "dilution": "1+1", "timeSeconds": 590, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 5, "cycleSeconds": 30 } },
+    { "id": "lomography-400-400-fujifilm-microfine-stock", "filmId": "lomography-400-400", "developerId": "fujifilm-microfine", "dilution": "stock", "timeSeconds": 480, "volumeMl": 350, "sharp": true, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "lomography-100-100-super-purodoll-d-76-eq-1-1", "filmId": "lomography-100-100", "developerId": "super-purodoll-d-76-eq", "dilution": "1+1", "timeSeconds": 570, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "lomography-100-100-kodak-xtol-1-1", "filmId": "lomography-100-100", "developerId": "kodak-xtol", "dilution": "1+1", "timeSeconds": 570, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 5, "cycleSeconds": 30 } },
+    { "id": "lomography-100-100-fujifilm-microfine-stock", "filmId": "lomography-100-100", "developerId": "fujifilm-microfine", "dilution": "stock", "timeSeconds": 420, "volumeMl": 350, "sharp": true, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "yashica-mono-400-400-super-purodoll-d-76-eq-1-1", "filmId": "yashica-mono-400-400", "developerId": "super-purodoll-d-76-eq", "dilution": "1+1", "timeSeconds": 600, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "yashica-mono-400-400-kodak-xtol-1-1", "filmId": "yashica-mono-400-400", "developerId": "kodak-xtol", "dilution": "1+1", "timeSeconds": 600, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 5, "cycleSeconds": 30 } },
+    { "id": "yashica-mono-400-400-fujifilm-microfine-stock", "filmId": "yashica-mono-400-400", "developerId": "fujifilm-microfine", "dilution": "stock", "timeSeconds": 480, "volumeMl": 350, "sharp": true, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "oriental-seagull-100-100-super-purodoll-d-76-eq-1-1", "filmId": "oriental-seagull-100-100", "developerId": "super-purodoll-d-76-eq", "dilution": "1+1", "timeSeconds": 570, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "oriental-seagull-100-100-kodak-xtol-1-1", "filmId": "oriental-seagull-100-100", "developerId": "kodak-xtol", "dilution": "1+1", "timeSeconds": 570, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 5, "cycleSeconds": 30 } },
+    { "id": "oriental-seagull-100-100-fujifilm-microfine-stock", "filmId": "oriental-seagull-100-100", "developerId": "fujifilm-microfine", "dilution": "stock", "timeSeconds": 390, "volumeMl": 350, "sharp": true, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } }
+  ],
+  "workflowDefaults": {
+    "stopBath": {
+      "name": "Stop Bath",
+      "transitionName": "Pour Stop Bath",
+      "transitionChemical": "Dump developer, fill with stop bath",
+      "chemical": "Stop bath solution",
+      "timeSeconds": 30,
+      "volumeMl": 350,
+      "temperature": "Room temp",
+      "agitation": { "initialSeconds": 30, "durationSeconds": 0, "cycleSeconds": 0 }
+    },
+    "waterBath": {
+      "name": "Water Bath",
+      "transitionName": "Pour Water Bath",
+      "transitionChemical": "Dump developer, fill with water",
+      "chemical": "Water rinse",
+      "timeSeconds": 30,
+      "volumeMl": 350,
+      "temperature": "Room temp",
+      "agitation": { "initialSeconds": 30, "durationSeconds": 0, "cycleSeconds": 0 }
+    },
+    "fixerTransitionChemical": {
+      "stopBath": "Dump stop bath, fill with fixer",
+      "waterBath": "Dump water, fill with fixer"
+    },
+    "fixer": {
+      "name": "Fixer",
+      "transitionName": "Pour Fixer",
+      "chemical": "Super Fujifix-L",
+      "timeSeconds": 300,
+      "volumeMl": 350,
+      "temperature": "20°C",
+      "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 }
+    },
+    "wash": {
+      "name": "Wash",
+      "transitionName": "Start Wash",
+      "transitionChemical": "Dump fixer, start running water",
+      "chemical": "Running water",
+      "timeSeconds": 300,
+      "volumeMl": 0,
+      "temperature": "Room temp",
+      "agitation": { "initialSeconds": 0, "durationSeconds": 0, "cycleSeconds": 0 }
+    },
+    "wettingAgent": {
+      "name": "Final Rinse",
+      "transitionName": "Pour Final Rinse",
+      "transitionChemical": "Stop water, fill with Driwel",
+      "chemical": "Driwel",
+      "timeSeconds": 30,
+      "volumeMl": 350,
+      "temperature": "Room temp",
+      "agitation": { "initialSeconds": 0, "durationSeconds": 0, "cycleSeconds": 0 }
+    }
+  }
+}
