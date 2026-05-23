@@ -10,43 +10,43 @@
 var FILM_DEV_DATA = null;
 
 var RAW_FALLBACK_RECIPES = [
-    { film: "Ilford HP5 Plus 400", iso: 400, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", \1agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
+    { film: "Ilford HP5 Plus 400", iso: 400, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", time_seconds: 540, time_display: "9:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
     { film: "Ilford HP5 Plus 400", iso: 400, developer: "Kodak XTOL", dilution: "1+1", time_seconds: 590, time_display: "9:50", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 5, agitation_cycle_s: 30, sharp: false },
     { film: "Ilford HP5 Plus 400", iso: 400, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 480, time_display: "8:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true },
-    { film: "Ilford FP4 Plus 125", iso: 125, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", \1agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
+    { film: "Ilford FP4 Plus 125", iso: 125, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", time_seconds: 600, time_display: "10:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
     { film: "Ilford FP4 Plus 125", iso: 125, developer: "Kodak XTOL", dilution: "1+1", time_seconds: 600, time_display: "10:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 5, agitation_cycle_s: 30, sharp: false },
     { film: "Ilford FP4 Plus 125", iso: 125, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 450, time_display: "7:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true },
-    { film: "Ilford Delta 400", iso: 400, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", \1agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
+    { film: "Ilford Delta 400", iso: 400, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", time_seconds: 720, time_display: "12:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
     { film: "Ilford Delta 400", iso: 400, developer: "Kodak XTOL", dilution: "1+1", time_seconds: 660, time_display: "11:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 5, agitation_cycle_s: 30, sharp: false },
     { film: "Ilford Delta 400", iso: 400, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 720, time_display: "12:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true },
-    { film: "Kentmere Pan 400", iso: 400, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", \1agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
+    { film: "Kentmere Pan 400", iso: 400, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", time_seconds: 600, time_display: "10:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
     { film: "Kentmere Pan 400", iso: 400, developer: "Kodak XTOL", dilution: "1+1", time_seconds: 600, time_display: "10:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 5, agitation_cycle_s: 30, sharp: false },
     { film: "Kentmere Pan 400", iso: 400, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 600, time_display: "10:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true },
-    { film: "Kentmere Pan 100", iso: 100, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", \1agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
+    { film: "Kentmere Pan 100", iso: 100, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", time_seconds: 570, time_display: "9:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
     { film: "Kentmere Pan 100", iso: 100, developer: "Kodak XTOL", dilution: "1+1", time_seconds: 570, time_display: "9:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 5, agitation_cycle_s: 30, sharp: false },
     { film: "Kentmere Pan 100", iso: 100, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 570, time_display: "9:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true },
-    { film: "Kodak Tri-X 400", iso: 400, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", \1agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
+    { film: "Kodak Tri-X 400", iso: 400, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", time_seconds: 585, time_display: "9:45", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
     { film: "Kodak Tri-X 400", iso: 400, developer: "Kodak XTOL", dilution: "1+1", time_seconds: 570, time_display: "9:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 5, agitation_cycle_s: 30, sharp: false },
     { film: "Kodak Tri-X 400", iso: 400, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 510, time_display: "8:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true },
-    { film: "Kodak T-Max 400", iso: 400, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", \1agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
+    { film: "Kodak T-Max 400", iso: 400, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", time_seconds: 660, time_display: "11:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
     { film: "Kodak T-Max 400", iso: 400, developer: "Kodak XTOL", dilution: "1+1", time_seconds: 630, time_display: "10:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 5, agitation_cycle_s: 30, sharp: false },
     { film: "Kodak T-Max 400", iso: 400, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 570, time_display: "9:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true },
-    { film: "Lomography 400", iso: 400, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", \1agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
+    { film: "Lomography 400", iso: 400, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", time_seconds: 600, time_display: "10:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
     { film: "Lomography 400", iso: 400, developer: "Kodak XTOL", dilution: "1+1", time_seconds: 590, time_display: "9:50", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 5, agitation_cycle_s: 30, sharp: false },
     { film: "Lomography 400", iso: 400, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 480, time_display: "8:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true },
-    { film: "Lomography 100", iso: 100, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", \1agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
+    { film: "Lomography 100", iso: 100, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", time_seconds: 570, time_display: "9:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
     { film: "Lomography 100", iso: 100, developer: "Kodak XTOL", dilution: "1+1", time_seconds: 570, time_display: "9:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 5, agitation_cycle_s: 30, sharp: false },
     { film: "Lomography 100", iso: 100, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 420, time_display: "7:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true },
-    { film: "Yashica Mono 400", iso: 400, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", \1agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
+    { film: "Yashica Mono 400", iso: 400, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", time_seconds: 600, time_display: "10:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
     { film: "Yashica Mono 400", iso: 400, developer: "Kodak XTOL", dilution: "1+1", time_seconds: 600, time_display: "10:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 5, agitation_cycle_s: 30, sharp: false },
     { film: "Yashica Mono 400", iso: 400, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 480, time_display: "8:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true },
-    { film: "Oriental Seagull 100", iso: 100, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", \1agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
+    { film: "Oriental Seagull 100", iso: 100, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", time_seconds: 570, time_display: "9:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
     { film: "Oriental Seagull 100", iso: 100, developer: "Kodak XTOL", dilution: "1+1", time_seconds: 570, time_display: "9:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 5, agitation_cycle_s: 30, sharp: false },
     { film: "Oriental Seagull 100", iso: 100, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 390, time_display: "6:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true },
-    { film: "Oriental Seagull 400", iso: 400, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", \1agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
+    { film: "Oriental Seagull 400", iso: 400, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", time_seconds: 840, time_display: "14:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
     { film: "Oriental Seagull 400", iso: 400, developer: "Kodak XTOL", dilution: "1+1", time_seconds: 720, time_display: "12:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 5, agitation_cycle_s: 30, sharp: false },
     { film: "Oriental Seagull 400", iso: 400, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 510, time_display: "8:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true },
-    { film: "SunBath Double X 200", iso: 200, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", \1agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
+    { film: "SunBath Double X 200", iso: 200, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", time_seconds: 570, time_display: "9:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
     { film: "SunBath Double X 200", iso: 200, developer: "Kodak XTOL", dilution: "1+1", time_seconds: 570, time_display: "9:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 5, agitation_cycle_s: 30, sharp: false },
     { film: "SunBath Double X 200", iso: 200, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 510, time_display: "8:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true }
 ];
@@ -455,29 +455,39 @@ class AudioSystem {
         this.agitationMuted = false;
         this.masterGain = null;
         this.allMuted = false;
+        this._unlockOnInteraction = this._unlockOnInteraction.bind(this);
+        document.addEventListener('touchstart', this._unlockOnInteraction, true);
+        document.addEventListener('click', this._unlockOnInteraction, true);
+    }
+
+    _unlockOnInteraction() {
+        if (this.isInitialized) return;
+        try {
+            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            var buffer = this.audioContext.createBuffer(1, 1, 22050);
+            var source = this.audioContext.createBufferSource();
+            source.buffer = buffer;
+            source.connect(this.audioContext.destination);
+            source.start(0);
+            this.isInitialized = true;
+            document.removeEventListener('touchstart', this._unlockOnInteraction, true);
+            document.removeEventListener('click', this._unlockOnInteraction, true);
+        } catch (e) {}
     }
 
     async init() {
         if (this.isInitialized) return;
         try {
-            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            if (!this.audioContext) {
+                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
             if (this.audioContext.state === 'suspended') {
                 await this.audioContext.resume();
             }
             this.isInitialized = true;
-            this.unlockAudio();
         } catch (e) {
             console.error('Failed to initialize audio:', e);
         }
-    }
-
-    unlockAudio() {
-        if (!this.audioContext) return;
-        var buffer = this.audioContext.createBuffer(1, 1, 22050);
-        var source = this.audioContext.createBufferSource();
-        source.buffer = buffer;
-        source.connect(this.audioContext.destination);
-        source.start(0);
     }
 
     async ensureAudioContext() {
@@ -1283,6 +1293,7 @@ class FilmDevTimer {
         this.agitationTimeRemaining = duration;
         this.agitationTotalDuration = duration;
         this.agitationHalfTimeAnnounced = false;
+        this.elements.agitationIndicator.classList.remove('preparing');
         this.updateAgitationUI();
         if (this.settings.agitationTone) this.audio.startAgitationTone();
         this.speech.speak('Agitate', true);
@@ -1489,14 +1500,23 @@ class FilmDevTimer {
                     var timeUntilNext = step.agitation.cycle_seconds - (timeSinceStart % step.agitation.cycle_seconds);
                     if (timeUntilNext < step.agitation.cycle_seconds) {
                         this.elements.agitationCountdown.textContent = 'in ' + timeUntilNext + 's';
+                        if (timeUntilNext <= 5) {
+                            this.elements.agitationIndicator.classList.add('preparing');
+                            this.elements.agitationText.textContent = 'Get Ready';
+                        } else {
+                            this.elements.agitationIndicator.classList.remove('preparing');
+                        }
                     } else {
                         this.elements.agitationCountdown.textContent = '--';
+                        this.elements.agitationIndicator.classList.remove('preparing');
                     }
                 } else {
                     this.elements.agitationCountdown.textContent = '--';
+                    this.elements.agitationIndicator.classList.remove('preparing');
                 }
             } else {
                 this.elements.agitationCountdown.textContent = '--';
+                this.elements.agitationIndicator.classList.remove('preparing');
             }
         }
     }

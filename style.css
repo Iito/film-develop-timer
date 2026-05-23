@@ -1079,6 +1079,18 @@ body {
     opacity: 0.4;
 }
 
+.agitation-indicator.preparing {
+    opacity: 0.8;
+    border-color: var(--accent-primary);
+    background: rgba(255, 107, 74, 0.08);
+    animation: pulse-prepare 0.8s ease-in-out infinite;
+}
+
+@keyframes pulse-prepare {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
 .agitation-indicator.active {
     opacity: 1;
     border-color: var(--warning);
