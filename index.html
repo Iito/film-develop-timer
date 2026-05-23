@@ -37,14 +37,28 @@
                 </select>
             </div>
 
+            <div class="form-group">
+                <label for="temp-input">Developer Temperature</label>
+                <div class="temp-input-group">
+                    <button type="button" id="temp-down" class="temp-btn">−</button>
+                    <input type="number" id="temp-input" class="temp-field" value="20" min="18" max="24" step="0.5">
+                    <span class="temp-unit">°C</span>
+                    <button type="button" id="temp-up" class="temp-btn">+</button>
+                </div>
+            </div>
+
             <div id="config-summary" class="config-summary hidden">
                 <div class="summary-row">
                     <span class="summary-label">Development Time</span>
                     <span id="summary-time" class="summary-value">--</span>
                 </div>
+                <div id="summary-adjusted-row" class="summary-row hidden">
+                    <span class="summary-label">Base Time (20°C)</span>
+                    <span id="summary-base-time" class="summary-value summary-muted">--</span>
+                </div>
                 <div class="summary-row">
                     <span class="summary-label">Temperature</span>
-                    <span class="summary-value">20°C</span>
+                    <span id="summary-temp" class="summary-value">20°C</span>
                 </div>
                 <div class="summary-subsection">
                     <div class="subsection-header">Agitation</div>

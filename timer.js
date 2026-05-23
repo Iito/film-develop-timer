@@ -57,6 +57,12 @@ function formatSeconds(seconds) {
     return minutes + ':' + (remainder < 10 ? '0' : '') + remainder;
 }
 
+function adjustTimeForTemperature(baseSeconds, tempC) {
+    if (tempC === 20) return baseSeconds;
+    var delta = tempC - 20;
+    return Math.round(baseSeconds * Math.pow(0.9, delta));
+}
+
 function formatDurationLabel(seconds) {
     if (seconds < 60) return seconds + ' seconds';
     if (seconds % 60 === 0) {
@@ -74,8 +80,10 @@ function createId(parts) {
 }
 
 function buildNormalizedData(recipes) {
+    var emulsionIndex = {};
     var filmIndex = {};
     var developerIndex = {};
+    var emulsions = [];
     var films = [];
     var developers = [];
     var normalizedRecipes = [];
@@ -84,8 +92,19 @@ function buildNormalizedData(recipes) {
         var recipe = recipes[i];
         var filmKey = recipe.film + '|' + recipe.iso;
         var developerKey = recipe.developer;
+        var emulsionId = emulsionIndex[filmKey];
         var filmId = filmIndex[filmKey];
         var developerId = developerIndex[developerKey];
+
+        if (!emulsionId) {
+            emulsionId = createId([recipe.film, recipe.iso]);
+            emulsionIndex[filmKey] = emulsionId;
+            emulsions.push({
+                id: emulsionId,
+                name: recipe.film,
+                iso: recipe.iso
+            });
+        }
 
         if (!filmId) {
             filmId = createId([recipe.film, recipe.iso]);
@@ -93,7 +112,7 @@ function buildNormalizedData(recipes) {
             films.push({
                 id: filmId,
                 name: recipe.film,
-                iso: recipe.iso
+                emulsionId: emulsionId
             });
         }
 
@@ -108,7 +127,7 @@ function buildNormalizedData(recipes) {
 
         normalizedRecipes.push({
             id: createId([recipe.film, recipe.iso, recipe.developer, recipe.dilution]),
-            filmId: filmId,
+            emulsionId: emulsionId,
             developerId: developerId,
             dilution: recipe.dilution,
             timeSeconds: recipe.time_seconds,
@@ -123,7 +142,8 @@ function buildNormalizedData(recipes) {
     }
 
     return {
-        schemaVersion: 1,
+        schemaVersion: 2,
+        emulsions: emulsions,
         films: films,
         developers: developers,
         recipes: normalizedRecipes,
@@ -188,8 +208,31 @@ function buildNormalizedData(recipes) {
 
 function normalizeDataSchema(data) {
     if (Array.isArray(data)) return buildNormalizedData(data);
-    if (data && data.schemaVersion === 1 && Array.isArray(data.films) && Array.isArray(data.developers) && Array.isArray(data.recipes)) {
+    if (data && data.schemaVersion === 2 && Array.isArray(data.emulsions)) {
         return data;
+    }
+    if (data && data.schemaVersion === 1 && Array.isArray(data.films) && Array.isArray(data.recipes)) {
+        var emulsions = [];
+        var films = [];
+        var recipes = [];
+        for (var i = 0; i < data.films.length; i++) {
+            var f = data.films[i];
+            emulsions.push({ id: f.id, name: f.name, iso: f.iso });
+            films.push({ id: f.id, name: f.name, emulsionId: f.id });
+        }
+        for (var j = 0; j < data.recipes.length; j++) {
+            var r = data.recipes[j];
+            recipes.push({
+                id: r.id, emulsionId: r.filmId, developerId: r.developerId,
+                dilution: r.dilution, timeSeconds: r.timeSeconds, volumeMl: r.volumeMl,
+                sharp: r.sharp, agitation: r.agitation
+            });
+        }
+        return {
+            schemaVersion: 2, emulsions: emulsions, films: films,
+            developers: data.developers, recipes: recipes,
+            workflowDefaults: data.workflowDefaults
+        };
     }
     throw new Error('Unsupported data schema');
 }
@@ -229,21 +272,24 @@ var DataService = {
         var films = [];
         for (var i = 0; i < FILM_DEV_DATA.films.length; i++) {
             var film = FILM_DEV_DATA.films[i];
+            var emulsion = this.getEmulsionById(film.emulsionId);
             films.push({
                 id: film.id,
                 name: film.name,
-                iso: film.iso,
-                display: film.name + ' (ISO ' + film.iso + ')'
+                iso: emulsion.iso,
+                display: film.name + ' (ISO ' + emulsion.iso + ')'
             });
         }
         return films;
     },
 
     getDevelopers: function(filmId) {
+        var film = this.getFilmById(filmId);
+        if (!film) return [];
         var developers = [];
         for (var i = 0; i < FILM_DEV_DATA.recipes.length; i++) {
             var recipe = FILM_DEV_DATA.recipes[i];
-            if (recipe.filmId === filmId) {
+            if (recipe.emulsionId === film.emulsionId) {
                 var developer = this.getDeveloperById(recipe.developerId);
                 developers.push({
                     id: recipe.id,
@@ -277,6 +323,13 @@ var DataService = {
         return null;
     },
 
+    getEmulsionById: function(emulsionId) {
+        for (var i = 0; i < FILM_DEV_DATA.emulsions.length; i++) {
+            if (FILM_DEV_DATA.emulsions[i].id === emulsionId) return FILM_DEV_DATA.emulsions[i];
+        }
+        return null;
+    },
+
     getRecipeById: function(recipeId) {
         for (var i = 0; i < FILM_DEV_DATA.recipes.length; i++) {
             if (FILM_DEV_DATA.recipes[i].id === recipeId) return FILM_DEV_DATA.recipes[i];
@@ -284,21 +337,23 @@ var DataService = {
         return null;
     },
 
-    getTimerConfig: function(recipeId, useStopBath, includeWettingAgent) {
+    getTimerConfig: function(recipeId, filmId, tempC, useStopBath, includeWettingAgent) {
         var recipe = this.getRecipeById(recipeId);
         if (!recipe) return null;
-        var film = this.getFilmById(recipe.filmId);
+        var film = this.getFilmById(filmId);
+        var emulsion = this.getEmulsionById(recipe.emulsionId);
         var developer = this.getDeveloperById(recipe.developerId);
         var workflow = FILM_DEV_DATA.workflowDefaults;
 
         var steps = [];
         var stepNum = 1;
 
+        var adjustedTime = adjustTimeForTemperature(recipe.timeSeconds, tempC);
         steps.push({
             step: stepNum, name: 'Developer',
             chemical: developer.name + ' (' + recipe.dilution + ')',
-            time_seconds: recipe.timeSeconds, time_display: formatSeconds(recipe.timeSeconds),
-            volume_ml: recipe.volumeMl, temperature: '20°C',
+            time_seconds: adjustedTime, time_display: formatSeconds(adjustedTime),
+            volume_ml: recipe.volumeMl, temperature: tempC + '°C',
             agitation: { start_seconds: recipe.agitation.initialSeconds, cycle_seconds: recipe.agitation.cycleSeconds, duration_seconds: recipe.agitation.durationSeconds },
             is_transition: false
         });
@@ -377,10 +432,12 @@ var DataService = {
         return {
             recipeId: recipe.id,
             filmId: film.id,
+            emulsionId: emulsion.id,
             developerId: developer.id,
-            film: film.name, iso: film.iso,
+            film: film.name, iso: emulsion.iso,
             developer: developer.name, dilution: recipe.dilution,
-            sharp: recipe.sharp, steps: steps
+            sharp: recipe.sharp, tempC: tempC,
+            baseTimeSeconds: recipe.timeSeconds, steps: steps
         };
     }
 };
@@ -782,7 +839,13 @@ class FilmDevTimer {
             includeWettingAgent: document.getElementById('include-wetting-agent'),
             stopBathName: document.getElementById('stop-bath-name'),
             stopBathAgitation: document.getElementById('stop-bath-agitation'),
-            pauseAfterStop: document.getElementById('pause-after-stop')
+            pauseAfterStop: document.getElementById('pause-after-stop'),
+            tempInput: document.getElementById('temp-input'),
+            tempUp: document.getElementById('temp-up'),
+            tempDown: document.getElementById('temp-down'),
+            summaryTemp: document.getElementById('summary-temp'),
+            summaryBaseTime: document.getElementById('summary-base-time'),
+            summaryAdjustedRow: document.getElementById('summary-adjusted-row')
         };
 
         this.init();
@@ -816,6 +879,9 @@ class FilmDevTimer {
         var self = this;
         this.elements.filmSelect.addEventListener('change', function(e) { self.onFilmChange(e.target.value); });
         this.elements.developerSelect.addEventListener('change', function(e) { self.onDeveloperChange(e.target.value); });
+        this.elements.tempInput.addEventListener('change', function() { self.onTempChange(); });
+        this.elements.tempUp.addEventListener('click', function() { self.adjustTemp(0.5); });
+        this.elements.tempDown.addEventListener('click', function() { self.adjustTemp(-0.5); });
         this.elements.startBtn.addEventListener('click', function() {
             self.audio.init().then(function() {
                 var countdownSeconds = parseInt(self.elements.startCountdownSelect.value, 10);
@@ -1002,6 +1068,26 @@ class FilmDevTimer {
         this.elements.startBtn.disabled = true;
     }
 
+    getTemp() {
+        var val = parseFloat(this.elements.tempInput.value);
+        if (isNaN(val) || val < 18) return 18;
+        if (val > 24) return 24;
+        return val;
+    }
+
+    adjustTemp(delta) {
+        var current = this.getTemp();
+        var next = Math.round((current + delta) * 10) / 10;
+        if (next < 18) next = 18;
+        if (next > 24) next = 24;
+        this.elements.tempInput.value = next;
+        this.onTempChange();
+    }
+
+    onTempChange() {
+        this.refreshSelectedRecipeConfig();
+    }
+
     onDeveloperChange(recipeId) {
         if (!recipeId) {
             this.elements.configSummary.classList.add('hidden');
@@ -1009,10 +1095,20 @@ class FilmDevTimer {
             this.elements.startBtn.disabled = true;
             return;
         }
-        this.config = DataService.getTimerConfig(recipeId, this.settings.includeStopBath, this.settings.includeWettingAgent);
+        var filmId = this.elements.filmSelect.value;
+        var tempC = this.getTemp();
+        this.config = DataService.getTimerConfig(recipeId, filmId, tempC, this.settings.includeStopBath, this.settings.includeWettingAgent);
         if (!this.config) return;
         var devStep = this.config.steps[0];
+        var isAdjusted = tempC !== 20;
         this.elements.summaryTime.textContent = devStep.time_display;
+        this.elements.summaryTemp.textContent = tempC + '°C';
+        if (isAdjusted) {
+            this.elements.summaryBaseTime.textContent = formatSeconds(this.config.baseTimeSeconds);
+            this.elements.summaryAdjustedRow.classList.remove('hidden');
+        } else {
+            this.elements.summaryAdjustedRow.classList.add('hidden');
+        }
         this.elements.summaryAgitationInitial.textContent = devStep.agitation.start_seconds + 's';
         this.elements.summaryAgitationDuration.textContent = devStep.agitation.duration_seconds + 's';
         this.elements.summaryAgitationInterval.textContent = 'every ' + devStep.agitation.cycle_seconds + 's';
@@ -1058,7 +1154,9 @@ class FilmDevTimer {
     startDevelopment() {
         if (!this.config) return;
         var recipeId = this.elements.developerSelect.value;
-        this.config = DataService.getTimerConfig(recipeId, this.settings.includeStopBath, this.settings.includeWettingAgent);
+        var filmId = this.elements.filmSelect.value;
+        var tempC = this.getTemp();
+        this.config = DataService.getTimerConfig(recipeId, filmId, tempC, this.settings.includeStopBath, this.settings.includeWettingAgent);
         if (!this.config) return;
         this.updateWorkflowProgressIndicators();
         this.elements.setupPanel.classList.add('hidden');
