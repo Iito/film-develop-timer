@@ -68,7 +68,7 @@ body {
 
 /* App Container */
 .app-container {
-    max-width: 480px;
+    width: 90%;
     margin: 0 auto;
     padding: var(--spacing-lg);
     min-height: 100vh;
