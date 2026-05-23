@@ -11,7 +11,9 @@
     { "id": "lomography-400-400", "name": "Lomography 400", "iso": 400 },
     { "id": "lomography-100-100", "name": "Lomography 100", "iso": 100 },
     { "id": "yashica-mono-400-400", "name": "Yashica Mono 400", "iso": 400 },
-    { "id": "oriental-seagull-100-100", "name": "Oriental Seagull 100", "iso": 100 }
+    { "id": "oriental-seagull-100-100", "name": "Oriental Seagull 100", "iso": 100 },
+    { "id": "oriental-seagull-400-400", "name": "Oriental Seagull 400", "iso": 400 },
+    { "id": "sunbath-double-x-200-200", "name": "SunBath Double X 200", "iso": 200 }
   ],
   "developers": [
     { "id": "super-purodoll-d-76-eq", "name": "Super Purodoll (D-76 eq)" },
@@ -51,7 +53,13 @@
     { "id": "yashica-mono-400-400-fujifilm-microfine-stock", "filmId": "yashica-mono-400-400", "developerId": "fujifilm-microfine", "dilution": "stock", "timeSeconds": 480, "volumeMl": 350, "sharp": true, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
     { "id": "oriental-seagull-100-100-super-purodoll-d-76-eq-1-1", "filmId": "oriental-seagull-100-100", "developerId": "super-purodoll-d-76-eq", "dilution": "1+1", "timeSeconds": 570, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
     { "id": "oriental-seagull-100-100-kodak-xtol-1-1", "filmId": "oriental-seagull-100-100", "developerId": "kodak-xtol", "dilution": "1+1", "timeSeconds": 570, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 5, "cycleSeconds": 30 } },
-    { "id": "oriental-seagull-100-100-fujifilm-microfine-stock", "filmId": "oriental-seagull-100-100", "developerId": "fujifilm-microfine", "dilution": "stock", "timeSeconds": 390, "volumeMl": 350, "sharp": true, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } }
+    { "id": "oriental-seagull-100-100-fujifilm-microfine-stock", "filmId": "oriental-seagull-100-100", "developerId": "fujifilm-microfine", "dilution": "stock", "timeSeconds": 390, "volumeMl": 350, "sharp": true, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "oriental-seagull-400-400-super-purodoll-d-76-eq-1-1", "filmId": "oriental-seagull-400-400", "developerId": "super-purodoll-d-76-eq", "dilution": "1+1", "timeSeconds": 840, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "oriental-seagull-400-400-kodak-xtol-1-1", "filmId": "oriental-seagull-400-400", "developerId": "kodak-xtol", "dilution": "1+1", "timeSeconds": 720, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 5, "cycleSeconds": 30 } },
+    { "id": "oriental-seagull-400-400-fujifilm-microfine-stock", "filmId": "oriental-seagull-400-400", "developerId": "fujifilm-microfine", "dilution": "stock", "timeSeconds": 510, "volumeMl": 350, "sharp": true, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "sunbath-double-x-200-200-super-purodoll-d-76-eq-1-1", "filmId": "sunbath-double-x-200-200", "developerId": "super-purodoll-d-76-eq", "dilution": "1+1", "timeSeconds": 570, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } },
+    { "id": "sunbath-double-x-200-200-kodak-xtol-1-1", "filmId": "sunbath-double-x-200-200", "developerId": "kodak-xtol", "dilution": "1+1", "timeSeconds": 570, "volumeMl": 350, "sharp": false, "agitation": { "initialSeconds": 30, "durationSeconds": 5, "cycleSeconds": 30 } },
+    { "id": "sunbath-double-x-200-200-fujifilm-microfine-stock", "filmId": "sunbath-double-x-200-200", "developerId": "fujifilm-microfine", "dilution": "stock", "timeSeconds": 510, "volumeMl": 350, "sharp": true, "agitation": { "initialSeconds": 30, "durationSeconds": 10, "cycleSeconds": 60 } }
   ],
   "workflowDefaults": {
     "stopBath": {

@@ -42,7 +42,13 @@ var RAW_FALLBACK_RECIPES = [
     { film: "Yashica Mono 400", iso: 400, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 480, time_display: "8:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true },
     { film: "Oriental Seagull 100", iso: 100, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", time_seconds: 570, time_display: "9:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
     { film: "Oriental Seagull 100", iso: 100, developer: "Kodak XTOL", dilution: "1+1", time_seconds: 570, time_display: "9:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 5, agitation_cycle_s: 30, sharp: false },
-    { film: "Oriental Seagull 100", iso: 100, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 390, time_display: "6:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true }
+    { film: "Oriental Seagull 100", iso: 100, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 390, time_display: "6:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true },
+    { film: "Oriental Seagull 400", iso: 400, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", time_seconds: 840, time_display: "14:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
+    { film: "Oriental Seagull 400", iso: 400, developer: "Kodak XTOL", dilution: "1+1", time_seconds: 720, time_display: "12:00", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 5, agitation_cycle_s: 30, sharp: false },
+    { film: "Oriental Seagull 400", iso: 400, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 510, time_display: "8:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true },
+    { film: "SunBath Double X 200", iso: 200, developer: "Super Purodoll (D-76 eq)", dilution: "1+1", time_seconds: 570, time_display: "9:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: false },
+    { film: "SunBath Double X 200", iso: 200, developer: "Kodak XTOL", dilution: "1+1", time_seconds: 570, time_display: "9:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 5, agitation_cycle_s: 30, sharp: false },
+    { film: "SunBath Double X 200", iso: 200, developer: "Fujifilm Microfine", dilution: "stock", time_seconds: 510, time_display: "8:30", volume_ml: 350, agitation_start_s: 30, agitation_time_s: 10, agitation_cycle_s: 60, sharp: true }
 ];
 
 function formatSeconds(seconds) {
