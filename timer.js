@@ -451,7 +451,7 @@ class AudioSystem {
         this.audioContext = null;
         this.isInitialized = false;
         this.agitationNodes = null;
-        this.toneType = 'pulse';
+        this.toneType = 'tick';
         this.agitationMuted = false;
         this.masterGain = null;
         this.allMuted = false;
@@ -464,6 +464,12 @@ class AudioSystem {
         if (this.isInitialized) return;
         try {
             this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            // iOS 12 / iPhone 6 needs an explicit resume inside the user gesture
+            // in addition to the silent buffer source unlock.
+            try {
+                var resumed = this.audioContext.resume && this.audioContext.resume();
+                if (resumed && typeof resumed.then === 'function') { resumed.catch(function() {}); }
+            } catch (e) {}
             var buffer = this.audioContext.createBuffer(1, 1, 22050);
             var source = this.audioContext.createBufferSource();
             source.buffer = buffer;
@@ -529,13 +535,14 @@ class AudioSystem {
         var ctx = this.audioContext;
         var nodes = { oscillators: [], gains: [], lfos: [] };
         switch (this.toneType) {
+            case 'tick': this._createClockTickTone(ctx, nodes); break;
             case 'pulse': this._createPulseTone(ctx, nodes); break;
             case 'metronome': this._createMetronomeTone(ctx, nodes); break;
             case 'soft': this._createSoftTone(ctx, nodes); break;
             case 'urgent': this._createUrgentTone(ctx, nodes); break;
             case 'chime': this._createChimeTone(ctx, nodes); break;
             case 'tokyo': this._createTokyoCrosswalkTone(ctx, nodes); break;
-            default: this._createPulseTone(ctx, nodes);
+            default: this._createClockTickTone(ctx, nodes);
         }
         this.agitationNodes = nodes;
     }
@@ -570,6 +577,36 @@ class AudioSystem {
             self._metronomeTimeout = setTimeout(scheduleClick, 1000);
         };
         scheduleClick();
+    }
+
+    _createClockTickTone(ctx, nodes) {
+        var self = this;
+        this._clockTickActive = true;
+        var isTick = true;
+        var playClick = function() {
+            if (!self._clockTickActive) return;
+            var now = ctx.currentTime;
+            var freq = isTick ? 1600 : 1200;
+            isTick = !isTick;
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+            var filter = ctx.createBiquadFilter();
+            osc.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
+            osc.type = 'square';
+            osc.frequency.value = freq;
+            filter.type = 'bandpass';
+            filter.frequency.value = freq;
+            filter.Q.value = 2;
+            // Envelope: silent → quick attack → fast decay. Using setValueAtTime
+            // before ramping is required for reliable playback on iOS 12 / iPhone 6.
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.linearRampToValueAtTime(0.35, now + 0.003);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+            osc.start(now);
+            osc.stop(now + 0.06);
+            self._clockTickTimeout = setTimeout(playClick, 1000);
+        };
+        playClick();
     }
 
     _createSoftTone(ctx, nodes) {
@@ -651,6 +688,8 @@ class AudioSystem {
         this.agitationMuted = false;
         this._metronomeActive = false;
         if (this._metronomeTimeout) { clearTimeout(this._metronomeTimeout); this._metronomeTimeout = null; }
+        this._clockTickActive = false;
+        if (this._clockTickTimeout) { clearTimeout(this._clockTickTimeout); this._clockTickTimeout = null; }
         this._chimeActive = false;
         if (this._chimeTimeout) { clearTimeout(this._chimeTimeout); this._chimeTimeout = null; }
         this._tokyoActive = false;
@@ -791,7 +830,7 @@ class FilmDevTimer {
         this.countdownInterval = null;
         this.wakeLock = null;
         this.settings = {
-            agitationTone: true, toneType: 'pulse',
+            agitationTone: true, toneType: 'tick',
             countdownBeeps: true, stepAlerts: true,
             voiceEnabled: true, voiceGender: 'female',
             includeStopBath: true, includeWettingAgent: true,
@@ -1498,8 +1537,11 @@ class FilmDevTimer {
                 if (timeAfterStart >= step.agitation.start_seconds) {
                     var timeSinceStart = timeAfterStart - step.agitation.start_seconds;
                     var timeUntilNext = step.agitation.cycle_seconds - (timeSinceStart % step.agitation.cycle_seconds);
-                    if (timeUntilNext < step.agitation.cycle_seconds) {
-                        this.elements.agitationCountdown.textContent = 'in ' + timeUntilNext + 's';
+                    var nextAtRemaining = this.stepTimeRemaining - timeUntilNext;
+                    if (timeUntilNext < step.agitation.cycle_seconds && nextAtRemaining > 0) {
+                        var nm = Math.floor(nextAtRemaining / 60);
+                        var ns = nextAtRemaining % 60;
+                        this.elements.agitationCountdown.textContent = 'at ' + nm + ':' + (ns < 10 ? '0' : '') + ns;
                         if (timeUntilNext <= 5) {
                             this.elements.agitationIndicator.classList.add('preparing');
                             this.elements.agitationText.textContent = 'Get Ready';
